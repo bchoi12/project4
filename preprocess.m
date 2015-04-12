@@ -13,12 +13,12 @@ function [xTr,xTe,u,m]=preprocess(xTr,xTe);
 
 X = [xTr xTe];
 
-m = mean(X, 1);
-M = repmat(m, size(X, 1), 1);
-u = 1 ./ std(X, 0, 1);
+m = mean(X, 2);
+M = repmat(m, 1, size(X, 2));
+u = 1 ./ std(X, 0, 2);
 U = diag(u);
 
-X = (X - M) * U;
+X = U * (X - M);
 
 % C = X*X';
 % [V, ~, explained] = pcacov(X);
